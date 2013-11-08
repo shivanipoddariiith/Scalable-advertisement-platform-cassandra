@@ -1,0 +1,32 @@
+<html>
+<head>
+<title>Edit: {{title1}}</title>
+</head>
+<body>
+<h1>Edit: {{title2}}</h1>
+{{else}}
+<h1>Create: {{title3}}</h1>
+{{endif}}
+
+<form action="?action=view" method="POST">
+Item Name: <input type="text" name="item_name" style="width: 70%" value="{{title4}}"><br>
+<input type="submit" value="save">
+<h1> Item Information </h1>
+Item Location: <input type="text" name="item_loc" style="width: 70%" value="{{title4}}"><br>
+<input type="submit" value="save">
+Item Price: <input type="text" name="item_price" style="width: 70%" value="{{title4}}"><br>
+<input type="submit" value="save">
+Item Category: <input type="text" name="item_cat" style="width: 70%" value="{{title4}}"><br>
+<input type="submit" value="save">
+<h1> Seller Information </h1>
+Seller Name: <input type="text" name="seller_name" style="width: 70%" value="{{title4}}"><br>
+<input type="submit" value="save">
+Seller Contact No.: <input type="text" name="seller_no" style="width: 70%" value="{{title4}}"><br>
+<input type="submit" value="save">
+Seller Email: <input type="text" name="seller_email" style="width: 70%" value="{{title4}}"><br>
+<input type="submit" value="save">
+Seller Location: <input type="text" name="seller_add" style="width: 70%" value="{{title4}}"><br>
+<input type="submit" value="save">
+<a href="tmp.html">Cancel</a>
+</form>
+</body></html>

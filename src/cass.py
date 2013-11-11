@@ -9,7 +9,7 @@ from pycassa.pool import ConnectionPool
 from pycassa.columnfamily import ColumnFamily
 #The schema name here is Keyspace2
 #The tables are Item, User, Location, Categories
-pool = ConnectionPool('Keyspace2')
+pool = ConnectionPool('Keyspace2', server_list=['localhost:9160'])
 item = ColumnFamily(pool, 'Item')
 user = ColumnFamily(pool, 'Category')
 location = ColumnFamily(pool, 'Location')
@@ -25,6 +25,7 @@ VIEW_TEMPLATE = HTMLTemplate("""\
 """)
 import jinja2
 class WikiApp():
+	path = "/home/shivani/Desktop/Courses/Cloud_Computing/Major_project/Adv_platform/src"
 	view_template = VIEW_TEMPLATE	
 	def __init__(self):
 		self.application="Project";
@@ -44,7 +45,7 @@ class WikiApp():
             		resp = e
         	return resp(environ, start_response)		
 
-		env = jinja2.Environment(loader=jinja2.FileSystemLoader(["/home/girish/Downloads/jinja/electronix_template_1611"]))
+		env = jinja2.Environment(loader=jinja2.FileSystemLoader([self.path]))
 		template=env.get_template("tmp1.html")
 		start_response('200 OK', [('Content-Type', 'text/html')])
 		temp = template.render().encode('ascii','ignore')
@@ -52,7 +53,7 @@ class WikiApp():
 
 
 	def action_view_GET(self,req):
-		env = jinja2.Environment(loader=jinja2.FileSystemLoader(["/home/girish/Downloads/jinja/electronix_template_1611"]))
+		env = jinja2.Environment(loader=jinja2.FileSystemLoader([self.path]))
 		template=env.get_template("form.html")
 		temp = template.render().encode('ascii','ignore')
 		return Response(temp);
@@ -67,9 +68,18 @@ class WikiApp():
 		sellerNo=req.params['seller_no'];
 		sellerEmail=req.params['seller_email'];
 		sellerAdd=req.params['seller_add'];
-		env = jinja2.Environment(loader=jinja2.FileSystemLoader(["/home/girish/Downloads/jinja/electronix_template_1611"]))
-		template=env.get_template("tmp.html")
+		id_ = 0
+		#Insert Item in table 'Item'
+		item.insert(id_, {'Name':itemName,
+				  'Location':itemLoc, 
+				  'Price':itemPrice, 
+				  'Category':category})
+		#Insert user info in table 'User'
 		
+		
+		env = jinja2.Environment(loader=jinja2.FileSystemLoader([self.path]))
+		template=env.get_template("tmp.html")
+				
 		temp = template.render(title="Recorded successfully").encode('ascii','ignore')
 		return Response(temp);
 
